@@ -65,11 +65,14 @@ OFBool DJPEG2KDecoderBase::canChangeCoding(
     const E_TransferSyntax newRepType) const
 {
   // this codec only handles conversion from JPEG-2000 to uncompressed.
+  // OpenJPEG 2.5 decodes HTJ2K (Part 15) codestreams too.
 
   DcmXfer newRep(newRepType);
   if (newRep.isNotEncapsulated() &&
      ((oldRepType == EXS_JPEG2000LosslessOnly)||(oldRepType == EXS_JPEG2000)||
-	  (oldRepType == EXS_JPEG2000MulticomponentLosslessOnly)||(oldRepType == EXS_JPEG2000Multicomponent)))
+	  (oldRepType == EXS_JPEG2000MulticomponentLosslessOnly)||(oldRepType == EXS_JPEG2000Multicomponent)||
+	  (oldRepType == EXS_HighThroughputJPEG2000LosslessOnly)||(oldRepType == EXS_HighThroughputJPEG2000withRPCLOptionsLosslessOnly)||
+	  (oldRepType == EXS_HighThroughputJPEG2000)))
      return OFTrue;
   
   return OFFalse;
